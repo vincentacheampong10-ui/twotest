@@ -51,6 +51,7 @@ public class Order {
         return total;
     }
 
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -70,4 +71,3 @@ public class Order {
         return stringBuilder.toString();
     }
 }
-
