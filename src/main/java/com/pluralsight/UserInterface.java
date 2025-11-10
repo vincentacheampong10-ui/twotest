@@ -245,7 +245,7 @@ public class UserInterface {
         System.out.print("Enter combo choice: ");
         String comboChoice = scanner.nextLine();
 
-        ComboItem combo = null;
+        Combo combo = null;
         String name;
         double price;
 
@@ -253,17 +253,17 @@ public class UserInterface {
             case "1":
                 name = "Jollof + Drink Combo";
                 price = 30.00;
-                combo = new ComboItem(name, price);
+                combo = new Combo(name, price);
                 break;
             case "2":
                 name = "Party Pack";
                 price = 85.00;
-                combo = new ComboItem(name, price);
+                combo = new Combo(name, price);
                 break;
             case "3":
                 name = "Student Meal Deal";
                 price = 20.00;
-                combo = new ComboItem(name, price);
+                combo = new Combo(name, price);
                 break;
             case "4":
                 System.out.println("No combo selected.");
