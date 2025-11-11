@@ -1,4 +1,5 @@
 package com.pluralsight;
+
 import java.util.Scanner;
 
 public class Drink {
@@ -27,7 +28,13 @@ public class Drink {
         }
     }
 
-    public double getPrice() { return price; }
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {

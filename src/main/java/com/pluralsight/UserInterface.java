@@ -49,6 +49,8 @@ public class UserInterface {
                     JollofMeal jollof = getJollofMealFromUser();
                     if (jollof != null) {
                         currentOrder.addMeal(jollof);
+                        // Standardized Success Message for Jollof Meal
+                        System.out.println("✅ " + jollof.getName() + " added to order.");
                     } else {
                         System.out.println("Jollof Meal creation failed.");
                     }
@@ -57,6 +59,8 @@ public class UserInterface {
                     Drink drink = Drink.createFromUserInput(scanner);
                     if (drink != null) {
                         currentOrder.setDrink(drink);
+                        // Standardized Success Message for Drink
+                        System.out.println("✅ " + drink.getName() + " added to order.");
                     } else {
                         System.out.println("Drink not added.");
                     }
@@ -65,6 +69,8 @@ public class UserInterface {
                     Dessert dessert = Dessert.createFromUserInput(scanner);
                     if (dessert != null) {
                         currentOrder.setDessert(dessert);
+                        // Standardized Success Message for Dessert
+                        System.out.println("✅ " + dessert.getName() + " added to order.");
                     } else {
                         System.out.println("Dessert not added.");
                     }
@@ -233,7 +239,6 @@ public class UserInterface {
         }
     }
 
-
     private void selectCombo() {
         System.out.println("\n--- Special Combo Deals ---");
         System.out.println("Option | Combo                       | Price");
@@ -253,6 +258,7 @@ public class UserInterface {
             case "1":
                 name = "Jollof + Drink Combo";
                 price = 30.00;
+                // Assuming Combo is now ComboItem or Combo with appropriate constructor
                 combo = new Combo(name, price);
                 break;
             case "2":
@@ -275,7 +281,54 @@ public class UserInterface {
 
         if (combo != null) {
             currentOrder.addMeal(combo);
+            // Standardized Success Message for Combo
             System.out.println("✅ " + combo.getName() + " added to order.");
+            customizeCombo(combo); // Continue to customization
+        }
+    }
+
+    private void customizeCombo(Combo combo) {
+        boolean customizing = true;
+        while (customizing) {
+            System.out.println("\n--- CUSTOMIZE " + combo.getName().toUpperCase() + " ---");
+            System.out.println("Current Combo Price: GHS " + String.format("%.2f", combo.calculatePrice()));
+            System.out.println("1. Add another Jollof Meal (Custom)");
+            System.out.println("2. Add another Drink");
+            System.out.println("3. Add another Side (Dessert)");
+            System.out.println("0. Done Customizing");
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    // Use the existing Jollof customization tool
+                    JollofMeal jollof = getJollofMealFromUser();
+                    if (jollof != null) {
+                        combo.addComponent(jollof); // Assumes Combo has an addComponent method
+                        System.out.println("✅ " + jollof.getName() + " added to combo.");
+                    }
+                    break;
+                case "2":
+                    Drink drink = Drink.createFromUserInput(scanner);
+                    if (drink != null) {
+                        combo.addComponent(drink); // Assumes Combo can hold Drinks
+                        System.out.println("✅ " + drink.getName() + " added to combo.");
+                    }
+                    break;
+                case "3":
+                    Dessert dessert = Dessert.createFromUserInput(scanner);
+                    if (dessert != null) {
+                        combo.addComponent(dessert); // Assumes Combo can hold Desserts
+                        System.out.println("✅ " + dessert.getName() + " added to combo.");
+                    }
+                    break;
+                case "0":
+                    customizing = false;
+                    System.out.println("Customization complete.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
         }
     }
 }
