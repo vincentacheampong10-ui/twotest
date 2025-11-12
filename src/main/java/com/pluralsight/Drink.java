@@ -12,7 +12,15 @@ public class Drink {
     }
 
     public static Drink createFromUserInput(Scanner scanner) {
-        System.out.println("Choose a drink (1.Sobolo 8, 2.Malt 10, 3.Coke 6, 4.Water 2): ");
+        System.out.println("\n╔═══════════════════════════════════════════════╗");
+        System.out.println("║                 CHOOSE A DRINK              ║");
+        System.out.println("╠═════════════════════════════════════════════╣");
+        System.out.println("║ 1️⃣  Sobolo .................... GHS 8       ║");
+        System.out.println("║ 2️⃣  Malt ...................... GHS 10      ║");
+        System.out.println("║ 3️⃣  Coke ...................... GHS 6       ║");
+        System.out.println("║ 4️⃣  Water ..................... GHS 2       ║");
+        System.out.println("╚═════════════════════════════════════════════╝");
+        System.out.print("Enter choice:");
         switch (scanner.nextLine()) {
             case "1":
                 return new Drink("Sobolo", 8);

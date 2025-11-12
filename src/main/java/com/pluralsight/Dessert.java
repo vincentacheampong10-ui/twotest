@@ -12,7 +12,15 @@ public class Dessert {
     }
 
     public static Dessert createFromUserInput(Scanner scanner) {
-        System.out.println("Choose dessert (1.Cake 8, 2.Chin Chin 6, 3.Fruit Cup 7, 4.None 0): ");
+        System.out.println("\n╔═══════════════════════════════════════════════╗");
+        System.out.println("║             🍰  CHOOSE A DESSERT              ║");
+        System.out.println("╠═══════════════════════════════════════════════╣");
+        System.out.println("║ 1️⃣  Cake ....................... GHS 8       ║");
+        System.out.println("║ 2️⃣  Chin Chin .................. GHS 6       ║");
+        System.out.println("║ 3️⃣  Fruit Cup .................. GHS 7       ║");
+        System.out.println("║ 4️⃣  None ....................... GHS 0       ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+        System.out.print("Enter choice:");
         switch (scanner.nextLine()) {
             case "1":
                 return new Dessert("Cake", 8);
