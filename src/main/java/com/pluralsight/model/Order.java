@@ -18,6 +18,7 @@ public class Order {
 
     }
 
+
     public void addMeal(com.pluralsight.model.Meal meal) {
         if (meal != null) {
             this.meals.add(meal);

@@ -271,34 +271,10 @@ public class UserInterface {
         System.out.println("╔════════════════════════════════════════════════════╗");
         System.out.println("║                   🧾 ORDER SUMMARY                 ║");
         System.out.println("╠════════════════════════════════════════════════════╣");
-    }
-}
-        for (MealComponent item : currentOrder.getMeals()) {
-            if (item instanceof Combo) {
-                Combo combo = (Combo) item;
-                String comboName = getDisplayComboName(combo);
 
-                // Display the combo name and its calculated price
-                System.out.printf("║ ✅ %-39s GHS %-8.2f ║%n", comboName, combo.calculatePrice());
-            } else {
-                // Display other meal types (Jollof Meal, etc.)
-                System.out.printf("║ ✅ %-39s GHS %-8.2f ║%n", item.getName(), item.calculatePrice());
-            }
-        }
-
-        // Display Drink and Dessert set directly on the Order object
-        if (currentOrder.getDrink() != null) {
-            Drink drink = currentOrder.getDrink();
-            System.out.printf("║ 🍹 %-39s GHS %-8.2f ║%n", drink.getName(), drink.calculatePrice());
-        }
-
-        if (currentOrder.getDessert() != null) {
-            Dessert dessert = currentOrder.getDessert();
-            System.out.printf("║ 🍰 %-39s GHS %-8.2f ║%n", dessert.getName(), dessert.calculatePrice());
-        }
+        System.out.println(currentOrder);
 
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        // The total calculation remains correct as it is handled by Order.calculateTotal()
         System.out.printf("║  💰 FINAL TOTAL: GHS %-30.2f ║%n", currentOrder.calculateTotal());
         System.out.println("╚══════════════════════════════════════════════════════╝");
 
@@ -309,7 +285,6 @@ public class UserInterface {
             System.out.println("Order canceled.");
         }
     }
-
 
     private void selectCombo() {
         System.out.println("╔══════════════════════════════════════════════════════╗");

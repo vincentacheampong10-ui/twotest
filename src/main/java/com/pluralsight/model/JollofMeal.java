@@ -141,7 +141,7 @@ public class JollofMeal extends Meal {
 
         }
         return null;
-    }
+}
 
     @Override
     public String toString() {
