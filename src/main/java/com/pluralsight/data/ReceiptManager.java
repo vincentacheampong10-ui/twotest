@@ -1,4 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.data;
+
+import com.pluralsight.model.Order;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +18,7 @@ public class ReceiptManager {
                 directory.mkdir(); // Creates the 'receipts' folder if it doesn't exist
             }
 
-            // 2. Define the path for the actual receipt FILE inside that folder
+            // 2. path for the actual receipt FILE inside that folder
             String filename = "receipts/" + LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")) + ".txt";
 
@@ -26,7 +28,7 @@ public class ReceiptManager {
                 writer.write(order.toString());
                 writer.write("\nTotal: GHS " + String.format("%.2f", order.calculateTotal()) + "\n");
             }
-            // If we reach this point, saving was successful.
+            // If I reach this point, saving was successful.
             System.out.println("✅ Order saved successfully!");
 
         } catch (IOException e) {

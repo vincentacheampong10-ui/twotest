@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.model;
 
 public abstract class Meal {
     protected String name;
@@ -14,6 +14,9 @@ public abstract class Meal {
     public String getName() {
         return name;
     }
-}
 
+    public String setName() {
+        return "";
+    }
+}
 

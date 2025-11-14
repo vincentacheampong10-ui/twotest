@@ -1,11 +1,13 @@
-package com.pluralsight;
+package com.pluralsight.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Combo extends Meal {
 
-    private List<Object> components = new ArrayList<>();
+
+
+    private List<Object> list = new ArrayList<>();
 
     public Combo(String name, double basePrice) {
         super(name, basePrice);
@@ -13,15 +15,26 @@ public class Combo extends Meal {
 
     public void addComponent(Object component) {
         if (component != null) {
-            this.components.add(component);
+            this.list.add(component);
         }
     }
+
+    public List<Object> getComponents() {
+        return this.list;
+    }
+
+    public void removeComponent ( Meal item) {
+        if (item != null) {
+            this.list.remove(item);
+        }
+    }
+
+
     @Override
     public double calculatePrice() {
         double total = this.basePrice; // Start with the fixed base price of the combo
 
-        // Iterate through all added components and sum their costs
-        for (Object component : components) {
+        for (Object component : list) {
             if (component instanceof Meal) {
                 total += ((Meal) component).calculatePrice();
             } else if (component instanceof Drink) {
@@ -31,13 +44,12 @@ public class Combo extends Meal {
             }
         }
 
-        // You would apply discounts here if the logic required it.
         return total;
     }
 
     @Override
     public String toString() {
-        // ... (You will also need to update toString to list the components) ...
-        return name + " Combo [Price: GHS " + String.format("%.2f", calculatePrice()) + ", Components: " + components.size() + " added]";
+        //  need to update toString to list the components
+        return name + " Combo [Price: GHS " + String.format("%.2f", calculatePrice()) + ", Components: " + list.size() + " added]";
     }
 }

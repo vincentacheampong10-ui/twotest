@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.model;
 
 import java.util.Scanner;
 
@@ -30,7 +30,7 @@ public class Drink {
                 return new Drink("Coke", 6);
             case "4":
                 return new Drink("Water", 2);
-            default: ///Had trouble fixing default
+            default:
                 System.out.println("Invalid selection. Select the above options");
                 return null;
         }

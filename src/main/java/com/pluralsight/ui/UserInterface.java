@@ -1,5 +1,11 @@
-package com.pluralsight;
+package com.pluralsight.ui;
 
+import com.pluralsight.data.ReceiptManager;
+import com.pluralsight.model.*;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -9,12 +15,12 @@ public class UserInterface {
     public void displayHome() {
         boolean running = true;
         while (running) {
-            System.out.println("\n╔═══════════════════════════════════════════════╗");
-            System.out.println("║          🍛  JOLLOF EXPRESS MENU              ║");
-            System.out.println("╠═══════════════════════════════════════════════╣");
-            System.out.println("║ 1.  New Order                                 ║");
-            System.out.println("║ 0.  Exit                                      ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
+            System.out.println("╔══════════════════════════════════════════════╗");
+            System.out.println("║              JOLLOF EXPRESS MENU             ║");
+            System.out.println("╠══════════════════════════════════════════════╣");
+            System.out.println("║ 1.  New Order                                ║");
+            System.out.println("║ 0.  Exit                                     ║");
+            System.out.println("╚══════════════════════════════════════════════╝");
             System.out.print("Enter choice:");
             String choice = scanner.nextLine();
 
@@ -45,7 +51,7 @@ public class UserInterface {
             System.out.println("║  3. Add Side (Dessert)                       ║");
             System.out.println("║  4. Checkout                                 ║");
             System.out.println("║  5. Combo Deal (Save 20%)                    ║");
-            System.out.println("║  0. Cancel Order                             ║");
+            System.out.println("║  0. Exit                                     ║");
             System.out.println("╚══════════════════════════════════════════════╝");
             System.out.print("Enter your choice:");
             String choice = scanner.nextLine();
@@ -103,8 +109,8 @@ public class UserInterface {
     }
 
     private JollofMeal getJollofMealFromUser() {
-        // --- 1. Get Base Choices (Jollof Type, Size, Protein) ---
-        System.out.println("\n╔══════════════════════════════════════════════════╗");
+
+        System.out.println("╔══════════════════════════════════════════════════╗");
         System.out.println("║                 1. CHOOSE JOLLOF TYPE            ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
         System.out.println("║  1. Classic Jollof        ($25)                  ║");
@@ -115,8 +121,8 @@ public class UserInterface {
         System.out.print("Enter your choice:");
         String typeChoice = scanner.nextLine();
 
-        System.out.println("\n╔══════════════════════════════════════════════════╗");
-        System.out.println("║                     2. CHOOSE SIZE              ║");
+        System.out.println("╔══════════════════════════════════════════════════╗");
+        System.out.println("║                     2. CHOOSE SIZE               ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
         System.out.println("║  1. Regular (x1.0)                               ║");
         System.out.println("║  2. Large (x1.5)                                 ║");
@@ -124,8 +130,8 @@ public class UserInterface {
         System.out.print("Enter your choice:");
         String sizeChoice = scanner.nextLine();
 
-        System.out.println("\n╔══════════════════════════════════════════════════╗");
-        System.out.println("║                 3. CHOOSE PROTEIN               ║");
+        System.out.println("╔══════════════════════════════════════════════════╗");
+        System.out.println("║                 3. CHOOSE PROTEIN                ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
         System.out.println("║  1. Chicken (+$8)                                ║");
         System.out.println("║  2. Beef (+$10)                                  ║");
@@ -145,7 +151,7 @@ public class UserInterface {
         final int premiumLimit = 3;
 
         while (addingAddOns) {
-            System.out.println("\n╔════════════════════════════════════════════════════════════╗");
+            System.out.println("╔════════════════════════════════════════════════════════════╗");
             System.out.println("║             4. ADD ADD-ONS                                 ║");
             System.out.println("╠════════════════════════════════════════════════════════════╣");
             System.out.println("║  Premium Limit Remaining: " + (premiumLimit - premiumCount) + " left                       ║");
@@ -177,7 +183,7 @@ public class UserInterface {
     private void handleRegularAddOns(JollofMeal jollof) {
         boolean choosingRegular = true;
         while (choosingRegular) {
-            System.out.println("\n╔══════════════════════════════════════════════════╗");
+            System.out.println("╔══════════════════════════════════════════════════╗");
             System.out.println("║                 REGULAR ADD-ONS                  ║");
             System.out.println("╠══════════════════════════════════════════════════╣");
             System.out.println("║  1) Plantain ............ (4.0)                  ║");
@@ -217,8 +223,8 @@ public class UserInterface {
         int addedCount = 0;
 
         while (choosingPremium && currentCount + addedCount < limit) {
-            System.out.println("\n╔══════════════════════════════════════════════════════╗");
-            System.out.println("║               PREMIUM ADD-ONS (GHS 6 each)         ║");
+            System.out.println("╔══════════════════════════════════════════════════════╗");
+            System.out.println("║               PREMIUM ADD-ONS (GHS 6 each)           ║");
             System.out.println("╠══════════════════════════════════════════════════════╣");
             System.out.printf("║  Limit Remaining: %-35s║%n", (limit - (currentCount + addedCount)));
             System.out.println("╠══════════════════════════════════════════════════════╣");
@@ -261,17 +267,38 @@ public class UserInterface {
         return addedCount;
     }
 
-    // ... (rest of the class) ...
-
     private void checkout() {
-        System.out.println("\n╔══════════════════════════════════════════════════════╗");
-        System.out.println("║                   🧾 ORDER SUMMARY                   ║");
-        System.out.println("╠══════════════════════════════════════════════════════╣");
+        System.out.println("╔════════════════════════════════════════════════════╗");
+        System.out.println("║                   🧾 ORDER SUMMARY                 ║");
+        System.out.println("╠════════════════════════════════════════════════════╣");
+    }
+}
+        for (MealComponent item : currentOrder.getMeals()) {
+            if (item instanceof Combo) {
+                Combo combo = (Combo) item;
+                String comboName = getDisplayComboName(combo);
 
-// Display current order details
-        System.out.println(currentOrder);
+                // Display the combo name and its calculated price
+                System.out.printf("║ ✅ %-39s GHS %-8.2f ║%n", comboName, combo.calculatePrice());
+            } else {
+                // Display other meal types (Jollof Meal, etc.)
+                System.out.printf("║ ✅ %-39s GHS %-8.2f ║%n", item.getName(), item.calculatePrice());
+            }
+        }
+
+        // Display Drink and Dessert set directly on the Order object
+        if (currentOrder.getDrink() != null) {
+            Drink drink = currentOrder.getDrink();
+            System.out.printf("║ 🍹 %-39s GHS %-8.2f ║%n", drink.getName(), drink.calculatePrice());
+        }
+
+        if (currentOrder.getDessert() != null) {
+            Dessert dessert = currentOrder.getDessert();
+            System.out.printf("║ 🍰 %-39s GHS %-8.2f ║%n", dessert.getName(), dessert.calculatePrice());
+        }
 
         System.out.println("╠══════════════════════════════════════════════════════╣");
+        // The total calculation remains correct as it is handled by Order.calculateTotal()
         System.out.printf("║  💰 FINAL TOTAL: GHS %-30.2f ║%n", currentOrder.calculateTotal());
         System.out.println("╚══════════════════════════════════════════════════════╝");
 
@@ -283,18 +310,19 @@ public class UserInterface {
         }
     }
 
+
     private void selectCombo() {
-        System.out.println("\n╔══════════════════════════════════════════════════════╗");
-        System.out.println("║                🍱 SPECIAL COMBO DEALS                ║");
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║                  SIGNATURE MEALS                     ║");
         System.out.println("╠══════════╦══════════════════════════════╦════════════╣");
-        System.out.println("║ Option   ║ Combo                        ║ Price (GHS) ║");
+        System.out.println("║ Option   ║  Meals                       ║ Price (GHS)║");
         System.out.println("╠══════════╬══════════════════════════════╬════════════╣");
-        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "1", "Jollof + Drink Combo (Save 10%)", 30.00);
-        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "2", "Party Pack (3 Meals + Sides)", 85.00);
-        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "3", "Student Meal Deal (Budget Size)", 20.00);
+        System.out.printf("║ %-8s ║ %-28s ║ %-7.2f ║%n", "1", "Classic Jollof + Chicken + Kelewele + Sobolo", 30.00);
+        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "2", "Veg Jollof + Tofu + Salad + Fresh Juice", 85.00);
+        System.out.printf("║ %-8s ║ %-28s ║ %-7.2f ║%n", "3", "Party Jollof + Goat Meat + Shito + Malt", 20.00);
         System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "4", "None", 0.00);
         System.out.println("╚══════════╩══════════════════════════════╩════════════╝");
-        System.out.print("\n👉 Enter combo choice: ");
+        System.out.print("Enter combo choice:");
         String comboChoice = scanner.nextLine();
 
         Combo combo = null;
@@ -303,26 +331,37 @@ public class UserInterface {
 
         switch (comboChoice) {
             case "1":
-                name = "Jollof + Drink Combo";
+                name = "Classic Jollof + Chicken + Kelewele + Sobolo";
                 price = 30.00;
-                // Assuming Combo is now ComboItem or Combo with appropriate constructor
                 combo = new Combo(name, price);
+                combo.addComponent(new JollofMeal("Classic Jollof", 25.00));
+                combo.addComponent(new AddOn("Chicken", 8.0));
+                combo.addComponent(new AddOn("Kelewele", true));
+                combo.addComponent(new Drink("Sobolo", 9.0));
                 break;
             case "2":
-                name = "Party Pack";
+                name = "Veg Jollof + Tofu + Salad + Fresh Juice";
                 price = 85.00;
                 combo = new Combo(name, price);
+                combo.addComponent(new JollofMeal("Veg Jollof", 25.00));
+                combo.addComponent(new AddOn("Tofu", 8.0));
+                combo.addComponent(new AddOn("Salad", true));
+                combo.addComponent(new Drink("Fresh Juice", 9.0));
                 break;
             case "3":
-                name = "Student Meal Deal";
-                price = 20.00;
+                name = "Party Jollof + Goat Meat + Shito + Malt";
+                price = 90.00;
                 combo = new Combo(name, price);
+                combo.addComponent(new JollofMeal("Party Jollof ", 25.00));
+                combo.addComponent(new AddOn("Goat Meat", 8.0));
+                combo.addComponent(new AddOn("Shito", true));
+                combo.addComponent(new Drink("Malt", 9.0));
                 break;
             case "4":
-                System.out.println("No combo selected.");
+                System.out.println("None.");
                 return;
             default:
-                System.out.println("Invalid combo choice.");
+                System.out.println("Invalid Signature meal choice.");
                 return;
         }
 
@@ -337,15 +376,18 @@ public class UserInterface {
     private void customizeCombo(Combo combo) {
         boolean customizing = true;
         while (customizing) {
-            System.out.println("\n╔════════════════════════════════════════════════════╗");
-            System.out.printf("║           ⚙️  CUSTOMIZE %-20s ║%n", combo.getName().toUpperCase());
+
+            System.out.printf(combo.getName().toUpperCase());
             System.out.println("╠════════════════════════════════════════════════════╣");
-            System.out.printf("║ Current Combo Price: GHS %-24.2f ║%n", combo.calculatePrice());
+            System.out.printf("║ Current Combo Price: GHS %-24.2f  ║%n", combo.calculatePrice());
             System.out.println("╠════════════════════════════════════════════════════╣");
-            System.out.println("║ 1. Add another Jollof Meal (Custom)                ║");
-            System.out.println("║ 2. Add another Drink                              ║");
-            System.out.println("║ 3. Add another Side (Dessert)                     ║");
-            System.out.println("║ 0. Done Customizing                               ║");
+            System.out.println("║ 1. Add another rice                                ║");
+            System.out.println("║ 2. Add another Drink                               ║");
+            System.out.println("║ 3. Add another Side                                ║");
+            System.out.println("║ 4. remove rice                                     ║");
+            System.out.println("║ 5. remove Drink                                    ║");
+            System.out.println("║ 6. remove Side                                     ║");
+            System.out.println("║ 0. Done Customizing                                ║");
             System.out.println("╚════════════════════════════════════════════════════╝");
             System.out.print("Choose an option:");
             String choice = scanner.nextLine();
@@ -353,24 +395,32 @@ public class UserInterface {
             switch (choice) {
                 case "1":
                     // Use the existing Jollof customization tool
-                    JollofMeal jollof = getJollofMealFromUser();
+                    JollofMeal jollof = jollofRice();
                     if (jollof != null) {
-                        combo.addComponent(jollof); // Assumes Combo has an addComponent method
-                        System.out.println("✅ " + jollof.getName() + " added to combo.");
+                        combo.addComponent(jollof);
+                        System.out.println("✅ " + jollof.getName() + " added to " + combo.getName() + ".");
                     }
                     break;
                 case "2":
                     Drink drink = Drink.createFromUserInput(scanner);
                     if (drink != null) {
-                        combo.addComponent(drink); // Assumes Combo can hold Drinks
-                        System.out.println("✅ " + drink.getName() + " added to combo.");
+                        combo.addComponent(drink);
+                        System.out.println("✅ " + drink.getName() + " added to " + combo.getName() + ".");
                     }
                     break;
                 case "3":
                     Dessert dessert = Dessert.createFromUserInput(scanner);
                     if (dessert != null) {
-                        combo.addComponent(dessert); // Assumes Combo can hold Desserts
-                        System.out.println("✅ " + dessert.getName() + " added to combo.");
+                        combo.addComponent(dessert);
+                        System.out.println("✅ " + dessert.getName() + " added to " + combo.getName() + ".");
+                    }
+                    break;
+                case "4":
+                    JollofMeal riceRemove = getJollofMealToRemove(combo);
+                    if (riceRemove != null) {
+                        combo.removeComponent(riceRemove);
+                        System.out.println("✅ " + riceRemove.getName() + " Removed.");
+                        customizing = false;
                     }
                     break;
                 case "0":
@@ -382,4 +432,117 @@ public class UserInterface {
             }
         }
     }
+
+    private JollofMeal getJollofMealToRemove(Combo combo) {
+        // 1. Create a list just for the Jollof Meals currently in the combo
+        List<JollofMeal> currentJollofs = new ArrayList<>();
+
+
+        for (Object component : combo.getComponents()) {
+            if (component instanceof JollofMeal) {
+                currentJollofs.add((JollofMeal) component);
+            }
+        }
+
+        if (currentJollofs.isEmpty()) {
+            System.out.println("⚠️ No Jollof Meals available to remove.");
+            return null;
+        }
+        System.out.print("""
+                        ╔══════════════════════════════════════════════════╗
+                        ║   1. CHOOSE RICE TO REMOVE                       ║
+                        ╠══════════════════════════════════════════════════╣
+                        ║  1. Classic Jollof        ($25)                  ║
+                        ║  2. Coconut Jollof        ($30)                  ║
+                        ║  3. Party Jollof          ($35)                  ║
+                        ║  4. Vegetarian Jollof     ($27)                  ║
+                        ╚══════════════════════════════════════════════════╝ 
+                        Enter number to remove (or 0 to cancel):  
+                """);
+
+        try {
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            if (choice > 0 && choice <= currentJollofs.size()) {
+                return currentJollofs.get(choice - 1);
+            } else if (choice == 0) {
+                System.out.println("Removal cancelled.");
+                return null;
+            } else {
+                System.out.println("❌ Invalid selection number.");
+                return null;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("❌ Invalid input. Please enter a number.");
+            scanner.nextLine();
+            return null;
+        }
+
+    }
+
+    private JollofMeal jollofRice() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("╔══════════════════════════════════════════════════╗");
+        System.out.println("║                 1. CHOOSE JOLLOF TYPE            ║");
+        System.out.println("╠══════════════════════════════════════════════════╣");
+        System.out.println("║  1. Classic Jollof        ($25)                  ║");
+        System.out.println("║  2. Coconut Jollof        ($30)                  ║");
+        System.out.println("║  3. Party Jollof          ($35)                  ║");
+        System.out.println("║  4. Vegetarian Jollof     ($27)                  ║");
+        System.out.println("╚══════════════════════════════════════════════════╝");
+        System.out.print("Enter your choice:");
+        String typeChoice = scanner.nextLine();
+
+        Combo combo = null;
+        String name;
+        double price;
+
+        switch (typeChoice) {
+            case "1":
+                name = "Classic Jollof";
+                price = 25.00;
+                combo = new Combo(name, price);
+                break;
+            case "2":
+                name = "Veg Jollof";
+                price = 85.00;
+                combo = new Combo(name, price);
+                break;
+            case "3":
+                name = "Party Jollof";
+                price = 90.00;
+                combo = new Combo(name, price);
+                break;
+            case "4":
+                name = "Vegetarian Jollof";
+                price = 90.00;
+                break;
+            case "5":
+                System.out.println("None.");
+                return null;
+            default:
+                System.out.println("Invalid Signature meal choice.");
+                return null;
+        }
+        // --- 2. Create Base Meal Object ---
+        return new JollofMeal(name, price);
+    }
+
+    private String getDisplayComboName(Combo combo) {
+        StringBuilder nameBuilder = new StringBuilder(combo.getName());
+
+        for (Object component : combo.getComponents()) {
+            if (component instanceof JollofMeal) {
+                nameBuilder.append(" + ").append(((JollofMeal) component).getName());
+            } else if (component instanceof Drink) {
+                nameBuilder.append(" + ").append(((Drink) component).getName());
+            } else if (component instanceof Dessert) {
+                nameBuilder.append(" + ").append(((Dessert) component).getName());
+            }
+        }
+        return nameBuilder.toString();
+    }
 }
+
