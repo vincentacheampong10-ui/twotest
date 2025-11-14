@@ -61,7 +61,6 @@ public class UserInterface {
                     JollofMeal jollof = getJollofMealFromUser();
                     if (jollof != null) {
                         currentOrder.addMeal(jollof);
-                        // Standardized Success Message for Jollof Meal
                         System.out.println("✅ " + jollof.getName() + " added to order.");
                     } else {
                         System.out.println("Jollof Meal creation failed.");
@@ -71,7 +70,6 @@ public class UserInterface {
                     Drink drink = Drink.createFromUserInput(scanner);
                     if (drink != null) {
                         currentOrder.setDrink(drink);
-                        // Standardized Success Message for Drink
                         System.out.println("✅ " + drink.getName() + " added to order.");
                     } else {
                         System.out.println("Drink not added.");
@@ -81,7 +79,6 @@ public class UserInterface {
                     Dessert dessert = Dessert.createFromUserInput(scanner);
                     if (dessert != null) {
                         currentOrder.setDessert(dessert);
-                        // Standardized Success Message for Dessert
                         System.out.println("✅ " + dessert.getName() + " added to order.");
                     } else {
                         System.out.println("Dessert not added.");
@@ -144,7 +141,6 @@ public class UserInterface {
         // --- 2. Create Base Meal Object ---
         JollofMeal jollof = JollofMeal.createFromChoices(typeChoice, sizeChoice, proteinChoice);
         if (jollof == null) return null; // Exit if base meal creation failed
-
 
         boolean addingAddOns = true;
         int premiumCount = 0;
@@ -272,8 +268,20 @@ public class UserInterface {
         System.out.println("║                   🧾 ORDER SUMMARY                 ║");
         System.out.println("╠════════════════════════════════════════════════════╣");
 
-        System.out.println(currentOrder);
+        // Print concise, friendly lines for each meal.
+        for (Meal meal : currentOrder.getMeals()) {
+            if (meal instanceof Combo) {
+                Combo combo = (Combo) meal;
+                System.out.println("✅ " + combo.getCompactDescription());
+            } else {
+                // fallback: use meal.toString()
+                System.out.println(meal.toString());
+            }
+        }
 
+        // Print drink/dessert (if set directly on the order)
+        // (Order.toString also prints these; we print separately for clarity)
+        System.out.println();
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.printf("║  💰 FINAL TOTAL: GHS %-30.2f ║%n", currentOrder.calculateTotal());
         System.out.println("╚══════════════════════════════════════════════════════╝");
@@ -287,16 +295,25 @@ public class UserInterface {
     }
 
     private void selectCombo() {
-        System.out.println("╔══════════════════════════════════════════════════════╗");
-        System.out.println("║                  SIGNATURE MEALS                     ║");
-        System.out.println("╠══════════╦══════════════════════════════╦════════════╣");
-        System.out.println("║ Option   ║  Meals                       ║ Price (GHS)║");
-        System.out.println("╠══════════╬══════════════════════════════╬════════════╣");
-        System.out.printf("║ %-8s ║ %-28s ║ %-7.2f ║%n", "1", "Classic Jollof + Chicken + Kelewele + Sobolo", 30.00);
-        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "2", "Veg Jollof + Tofu + Salad + Fresh Juice", 85.00);
-        System.out.printf("║ %-8s ║ %-28s ║ %-7.2f ║%n", "3", "Party Jollof + Goat Meat + Shito + Malt", 20.00);
-        System.out.printf("║ %-8s ║ %-28s ║ %-10.2f ║%n", "4", "None", 0.00);
-        System.out.println("╚══════════╩══════════════════════════════╩════════════╝");
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                         SIGNATURE MEALS                          ║");
+        System.out.println("╠══════════╦═════════════════════════════════════════════╦═════════╣");
+        System.out.println("║ Option   ║ Meals                                       ║ Price   ║");
+        System.out.println("╠══════════╬═════════════════════════════════════════════╬═════════╣");
+
+        System.out.printf("║ %-8s ║ %-45s ║ %5.2f ║%n", "1",
+                "Classic Jollof + Chicken + Kelewele + Sobolo", 30.00);
+
+        System.out.printf("║ %-8s ║ %-45s ║ %7.2f ║%n", "2",
+                "Veg Jollof + Tofu + Salad + Fresh Juice", 85.00);
+
+        System.out.printf("║ %-8s ║ %-45s ║ %7.2f ║%n", "3",
+                "Party Jollof + Goat Meat + Shito + Malt", 20.00);
+
+        System.out.printf("║ %-8s ║ %-45s ║ %7.2f ║%n", "4",
+                "None", 0.00);
+
+        System.out.println("╚══════════╩═════════════════════════════════════════════╩═════════╝");
         System.out.print("Enter combo choice:");
         String comboChoice = scanner.nextLine();
 
@@ -318,7 +335,7 @@ public class UserInterface {
                 name = "Veg Jollof + Tofu + Salad + Fresh Juice";
                 price = 85.00;
                 combo = new Combo(name, price);
-                combo.addComponent(new JollofMeal("Veg Jollof", 25.00));
+                combo.addComponent(new JollofMeal("Veg Jollof", 27.00));
                 combo.addComponent(new AddOn("Tofu", 8.0));
                 combo.addComponent(new AddOn("Salad", true));
                 combo.addComponent(new Drink("Fresh Juice", 9.0));
@@ -327,7 +344,7 @@ public class UserInterface {
                 name = "Party Jollof + Goat Meat + Shito + Malt";
                 price = 90.00;
                 combo = new Combo(name, price);
-                combo.addComponent(new JollofMeal("Party Jollof ", 25.00));
+                combo.addComponent(new JollofMeal("Party Jollof ", 35.00));
                 combo.addComponent(new AddOn("Goat Meat", 8.0));
                 combo.addComponent(new AddOn("Shito", true));
                 combo.addComponent(new Drink("Malt", 9.0));
@@ -352,9 +369,7 @@ public class UserInterface {
         boolean customizing = true;
         while (customizing) {
 
-            System.out.printf(combo.getName().toUpperCase());
-            System.out.println("╠════════════════════════════════════════════════════╣");
-            System.out.printf("║ Current Combo Price: GHS %-24.2f  ║%n", combo.calculatePrice());
+            System.out.println(    combo.getName().toUpperCase());
             System.out.println("╠════════════════════════════════════════════════════╣");
             System.out.println("║ 1. Add another rice                                ║");
             System.out.println("║ 2. Add another Drink                               ║");
@@ -369,7 +384,7 @@ public class UserInterface {
 
             switch (choice) {
                 case "1":
-                    // Use the existing Jollof customization tool
+
                     JollofMeal jollof = jollofRice();
                     if (jollof != null) {
                         combo.addComponent(jollof);
@@ -409,9 +424,7 @@ public class UserInterface {
     }
 
     private JollofMeal getJollofMealToRemove(Combo combo) {
-        // 1. Create a list just for the Jollof Meals currently in the combo
         List<JollofMeal> currentJollofs = new ArrayList<>();
-
 
         for (Object component : combo.getComponents()) {
             if (component instanceof JollofMeal) {
@@ -432,7 +445,7 @@ public class UserInterface {
                         ║  3. Party Jollof          ($35)                  ║
                         ║  4. Vegetarian Jollof     ($27)                  ║
                         ╚══════════════════════════════════════════════════╝ 
-                        Enter number to remove (or 0 to cancel):  
+                        Enter number to remove (or 0 to cancel):
                 """);
 
         try {
@@ -457,8 +470,6 @@ public class UserInterface {
     }
 
     private JollofMeal jollofRice() {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("╔══════════════════════════════════════════════════╗");
         System.out.println("║                 1. CHOOSE JOLLOF TYPE            ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
@@ -470,7 +481,6 @@ public class UserInterface {
         System.out.print("Enter your choice:");
         String typeChoice = scanner.nextLine();
 
-        Combo combo = null;
         String name;
         double price;
 
@@ -478,25 +488,19 @@ public class UserInterface {
             case "1":
                 name = "Classic Jollof";
                 price = 25.00;
-                combo = new Combo(name, price);
                 break;
             case "2":
-                name = "Veg Jollof";
-                price = 85.00;
-                combo = new Combo(name, price);
+                name = "Coconut Jollof ";
+                price = 30.00;
                 break;
             case "3":
                 name = "Party Jollof";
-                price = 90.00;
-                combo = new Combo(name, price);
+                price = 35.00;
                 break;
             case "4":
                 name = "Vegetarian Jollof";
-                price = 90.00;
+                price = 27.00;
                 break;
-            case "5":
-                System.out.println("None.");
-                return null;
             default:
                 System.out.println("Invalid Signature meal choice.");
                 return null;
@@ -504,20 +508,4 @@ public class UserInterface {
         // --- 2. Create Base Meal Object ---
         return new JollofMeal(name, price);
     }
-
-    private String getDisplayComboName(Combo combo) {
-        StringBuilder nameBuilder = new StringBuilder(combo.getName());
-
-        for (Object component : combo.getComponents()) {
-            if (component instanceof JollofMeal) {
-                nameBuilder.append(" + ").append(((JollofMeal) component).getName());
-            } else if (component instanceof Drink) {
-                nameBuilder.append(" + ").append(((Drink) component).getName());
-            } else if (component instanceof Dessert) {
-                nameBuilder.append(" + ").append(((Dessert) component).getName());
-            }
-        }
-        return nameBuilder.toString();
-    }
 }
-

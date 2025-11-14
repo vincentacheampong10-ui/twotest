@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private List<com.pluralsight.model.Meal> meals = new ArrayList<>();
+    private List<Meal> meals = new ArrayList<>();
     private Drink drink;
-    private com.pluralsight.model.Dessert dessert;
+    private Dessert dessert;
 
-    public Order(List<com.pluralsight.model.Meal> meals, Drink drink, com.pluralsight.model.Dessert dessert) {
+    public Order(List<Meal> meals, Drink drink, Dessert dessert) {
         this.meals = meals;
         this.drink = drink;
         this.dessert = dessert;
@@ -18,8 +18,7 @@ public class Order {
 
     }
 
-
-    public void addMeal(com.pluralsight.model.Meal meal) {
+    public void addMeal(Meal meal) {
         if (meal != null) {
             this.meals.add(meal);
         } else {
@@ -31,13 +30,13 @@ public class Order {
         this.drink = drink;
     }
 
-    public void setDessert(com.pluralsight.model.Dessert dessert) {
+    public void setDessert(Dessert dessert) {
         this.dessert = dessert;
     }
 
     public double calculateTotal() {
         double total = 0;
-        for (com.pluralsight.model.Meal meal : meals) {
+        for (Meal meal : meals) {
             total += meal.calculatePrice();
         }
         // Adds drink price if present
@@ -52,11 +51,16 @@ public class Order {
         return total;
     }
 
+    // NEW: expose meals so UI can build custom summaries
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         // Append all meals
-        for (com.pluralsight.model.Meal m : meals) {
+        for (Meal m : meals) {
             stringBuilder.append(m).append("\n");
         }
 
@@ -71,4 +75,3 @@ public class Order {
         return stringBuilder.toString();
     }
 }
-
